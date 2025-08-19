@@ -7,7 +7,7 @@ while true; do
 	--title="Система оповещения\уведомления" \
 	--field="Введи сообщение::TXT" "" \
 	--field="Дата::DT" \
-	--field="Время::TIME")
+	--field="Время::TIME" )
 
 	[ $? -ne 0 ] && exit 0
 
@@ -20,7 +20,8 @@ while true; do
 		continue
 	fi
 
+	SOUND="paplay ~/notification_yad/sounds/vizg.wav"
 	yad --info --title="Готово" --text="Создано на дату: $date $time"
-	echo "yad --info --title='Notification' --text='$msg'" | at "$time $date"
+	echo "$SOUND && yad --info --title='Notification' --text='$msg'" | at "$time $date"
 done
 
